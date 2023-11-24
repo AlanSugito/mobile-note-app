@@ -14,7 +14,8 @@ const COLORS = {
 };
 
 const FONTS = {
-  header: "Montserrat",
+  headerMd: "MontserratMd",
+  headerSB: "MontserratSB",
   paragraph: "Quicksand",
 };
 

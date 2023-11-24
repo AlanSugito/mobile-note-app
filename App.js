@@ -4,7 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { useFonts } from "expo-font";
 import { SplashScreen } from "expo-router";
 import { useCallback, useEffect } from "react";
-import Home from "./app/Home";
+import Home from "./app/Home/Home";
 
 const Stack = createStackNavigator();
 
@@ -30,7 +30,11 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="home" component={Home} />
+        <Stack.Screen
+          name="home"
+          component={Home}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
