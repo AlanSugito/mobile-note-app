@@ -1,20 +1,37 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+
+import { useFonts } from "expo-font";
+import { SplashScreen } from "expo-router";
+import { useCallback, useEffect } from "react";
+import Home from "./app/Home";
+
+const Stack = createStackNavigator();
 
 export default function App() {
+  const [fontLoaded] = useFonts({
+    MontserratMd: require("./assets/fonts/Montserrat-Medium.ttf"),
+    MontserratSB: require("./assets/fonts/Montserrat-SemiBold.ttf"),
+    Quicksand: require("./assets/fonts/Quicksand-Regular.ttf"),
+  });
+
+  const onLayoutRootView = useCallback(() => {
+    if (fontLoaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontLoaded]);
+
+  useEffect(() => {
+    onLayoutRootView();
+  }, []);
+
+  if (!fontLoaded) return null;
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="home" component={Home} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
