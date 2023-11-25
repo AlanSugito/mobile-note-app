@@ -3,10 +3,16 @@ import styles from "./card.style";
 import Heading from "../Heading/Heading";
 import { FONTS, ICON, SIZES } from "../../../constants";
 import moment from "moment";
+import { useNavigation } from "@react-navigation/native";
 
 const Card = ({ id, bgColor, title, desc, date, onDelete }) => {
+  const navigation = useNavigation();
   const deleteNote = () => {
     onDelete(id);
+  };
+
+  const handlePress = () => {
+    navigation.navigate("note", { id });
   };
 
   return (
@@ -14,19 +20,27 @@ const Card = ({ id, bgColor, title, desc, date, onDelete }) => {
       <TouchableOpacity onPress={deleteNote} style={styles.closeButton}>
         <Image source={ICON.close} />
       </TouchableOpacity>
-      <View style={{ flex: 1 }}>
-        <Heading text={title} boldnes={FONTS.headerSB} size={SIZES.lg} />
-      </View>
-      <View style={{ flex: 2 }}>
-        <Text style={styles.cardText}>{desc.substring(100)}</Text>
-      </View>
-      <View
-        style={{ flex: 1, justifyContent: "flex-end", alignItems: "flex-end" }}
-      >
-        <Text style={styles.cardText}>
-          {moment(date).startOf("days").fromNow()}
-        </Text>
-      </View>
+      <TouchableOpacity onPress={handlePress} style={{ flex: 1 }}>
+        <View style={{ flex: 1 }}>
+          <View style={{ flex: 1 }}>
+            <Heading text={title} boldnes={FONTS.headerSB} size={SIZES.lg} />
+          </View>
+          <View style={{ flex: 2 }}>
+            <Text style={styles.cardText}>{desc.substring(100)}</Text>
+          </View>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "flex-end",
+              alignItems: "flex-end",
+            }}
+          >
+            <Text style={styles.cardText}>
+              {moment(date).startOf("days").fromNow()}
+            </Text>
+          </View>
+        </View>
+      </TouchableOpacity>
     </View>
   );
 };

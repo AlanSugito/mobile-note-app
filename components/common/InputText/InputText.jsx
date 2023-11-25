@@ -8,6 +8,7 @@ const InputText = ({ placeholder, ...props }) => {
       style={styles.inputText}
       placeholder={placeholder}
       placeholderTextColor={"white"}
+      cursorColor={"white"}
       {...props}
     ></TextInput>
   );

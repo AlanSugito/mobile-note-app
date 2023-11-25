@@ -1,5 +1,5 @@
 import { Image, Modal, Text, View, TouchableOpacity } from "react-native";
-import { COLORS, FONTS, ICON, SIZES } from "../../../../constants";
+import { ICON, FONTS } from "../../../../constants";
 import styles from "./confirmModal.style";
 
 const ConfirmModal = ({ visible, message, onConfirm, onCancel, danger }) => {

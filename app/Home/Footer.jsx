@@ -1,11 +1,17 @@
 import { Image, TouchableOpacity, View, Text } from "react-native";
-import { FONTS, ICON, SIZES } from "../../constants";
+import { ICON } from "../../constants";
+import { useNavigation } from "@react-navigation/native";
 import styles from "./home.style";
 
-const Footer = ({ onPress }) => {
+const Footer = () => {
+  const navigation = useNavigation();
+  const createNewNote = () => {
+    navigation.navigate("note", { id: "" });
+  };
+
   return (
     <View>
-      <TouchableOpacity style={styles.footerButton} onPress={onPress}>
+      <TouchableOpacity style={styles.footerButton} onPress={createNewNote}>
         <View style={styles.btnIcon}>
           <Image source={ICON.add} />
           <Text style={styles.btnText}>New</Text>

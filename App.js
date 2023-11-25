@@ -5,6 +5,11 @@ import { useFonts } from "expo-font";
 import { SplashScreen } from "expo-router";
 import { useCallback, useEffect } from "react";
 import Home from "./app/Home/Home";
+import Paper from "./app/Paper/Paper";
+
+import { TouchableOpacity, Image } from "react-native";
+import { ICON } from "./constants";
+import Login from "./app/Login/Login";
 
 const Stack = createStackNavigator();
 
@@ -33,6 +38,16 @@ export default function App() {
         <Stack.Screen
           name="home"
           component={Home}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="note"
+          component={Paper}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="login"
+          component={Login}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
