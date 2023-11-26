@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { COLORS } from "../../../constants";
+import { COLORS, SIZES } from "../../../constants";
 
 const styles = StyleSheet.create({
   inputText: {
@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     color: "white",
     fontFamily: "Quicksand",
+    fontSize: SIZES.sm,
   },
 });
 

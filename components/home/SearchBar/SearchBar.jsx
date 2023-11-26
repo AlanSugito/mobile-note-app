@@ -4,7 +4,6 @@ import { Image, View } from "react-native";
 import { ICON } from "../../../constants";
 import styles from "./searchbar.style";
 import { useState } from "react";
-import useInputHandler from "../../../hooks/useInputHandler";
 
 const SearchBar = ({ onSearch }) => {
   const [search, setSearch] = useState("");
@@ -13,13 +12,16 @@ const SearchBar = ({ onSearch }) => {
     onSearch(search);
   };
 
-  const handleChange = useInputHandler((value) => {
+  const handleChange = (value) => {
     setSearch(value);
-  });
+  };
 
   return (
     <View style={styles.searchBarContainer}>
-      <InputText placeholder={"Search your notes..."} onChange={handleChange} />
+      <InputText
+        placeholder={"Search your notes..."}
+        onChangeText={handleChange}
+      />
       <TouchableOpacity style={styles.searcBarButton} onPress={searchHandler}>
         <View style={{ width: "40%" }}>
           <Image source={ICON.search} />

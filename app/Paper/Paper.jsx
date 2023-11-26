@@ -76,13 +76,13 @@ const Paper = () => {
     }
   }, [route.params.id]);
 
-  const setNotes = useInputHandler((value) => {
+  const setNotes = (value) => {
     setNote((prev) => ({ ...prev, desc: value }));
-  });
+  };
 
-  const setTitle = useInputHandler((value) => {
+  const setTitle = (value) => {
     setNote((prev) => ({ ...prev, title: value }));
-  });
+  };
 
   const setPaperColor = (color) => {
     setNote((prev) => ({ ...prev, paperColor: color }));
@@ -101,7 +101,7 @@ const Paper = () => {
         <TextInput
           value={note.title}
           style={styles.noteTitle}
-          onChange={setTitle}
+          onChangeText={setTitle}
         />
         {route.params.id ? (
           <View style={{ flexDirection: "row", gap: 30, marginTop: 20 }}>
@@ -122,7 +122,7 @@ const Paper = () => {
             maxLength={500}
             value={note.desc}
             style={styles.text}
-            onChange={setNotes}
+            onChangeText={setNotes}
           />
         </ScrollView>
         <View style={{ alignItems: "center", justifyContent: "center" }}>

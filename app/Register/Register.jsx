@@ -2,21 +2,10 @@ import { Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { COLORS, FONTS, SIZES } from "../../constants";
 import { Button, InputText } from "../../components/common";
+import styles from "./register.style";
 import { Link } from "@react-navigation/native";
-import styles from "./login.style";
-import { useState } from "react";
 
-const Login = () => {
-  const [credentials, setCredentials] = useState({ email: "", password: "" });
-
-  const setEmail = (value) => {
-    setCredentials((prev) => ({ ...prev, email: value }));
-  };
-
-  const setPassword = (value) => {
-    setCredentials((prev) => ({ ...prev, password: value }));
-  };
-
+const Register = () => {
   return (
     <SafeAreaView
       style={{
@@ -36,25 +25,34 @@ const Login = () => {
         Welcome!
       </Text>
       <View style={styles.formContainer}>
-        <View>
-          <Text style={styles.label}>Email</Text>
-          <InputText
-            placeholder={"Insert your email..."}
-            onChangeText={setEmail}
-          />
+        <View
+          style={{
+            flexDirection: "row",
+            gap: 10,
+            justifyContent: "center",
+          }}
+        >
+          <View>
+            <Text style={styles.label}>First name*</Text>
+            <InputText placeholder={"Insert your first name..."} />
+          </View>
+          <View>
+            <Text style={styles.label}>Last Name</Text>
+            <InputText placeholder={"Insert your last name..."} />
+          </View>
         </View>
         <View>
-          <Text style={styles.label}>Password</Text>
-          <InputText
-            placeholder={"Set your password..."}
-            secureTextEntry
-            onChangeText={setPassword}
-          />
+          <Text style={styles.label}>Email*</Text>
+          <InputText placeholder={"Insert your email..."} />
+        </View>
+        <View>
+          <Text style={styles.label}>Password*</Text>
+          <InputText placeholder={"Set your password..."} secureTextEntry />
         </View>
         <Text style={styles.errorMessage(true)}>
           Password mus be at least 6 character
         </Text>
-        <Button label={"Login"} bgColor={COLORS.yellow} />
+        <Button label={"Register"} bgColor={COLORS.yellow} />
         <Text
           style={{
             color: "white",
@@ -62,9 +60,9 @@ const Login = () => {
             textAlign: "center",
           }}
         >
-          Still not have an ccount?{" "}
-          <Link to={{ screen: "register" }} style={{ color: COLORS.yellow }}>
-            Register
+          Already have an account?
+          <Link to={{ screen: "login" }} style={{ color: COLORS.yellow }}>
+            Login
           </Link>
         </Text>
       </View>
@@ -72,4 +70,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

@@ -9,7 +9,7 @@
     "splash": {
       "image": "./assets/icons/add.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffff00"
+      "backgroundColor": "#1A1A1A"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -19,12 +19,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icons/add.png",
         "backgroundColor": "#ffffff"
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/icons/add.png"
     },
     "plugins": [
       "expo-router"

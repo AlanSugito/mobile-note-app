@@ -10,6 +10,7 @@ import Paper from "./app/Paper/Paper";
 import { TouchableOpacity, Image } from "react-native";
 import { ICON } from "./constants";
 import Login from "./app/Login/Login";
+import Register from "./app/Register/Register";
 
 const Stack = createStackNavigator();
 
@@ -48,6 +49,11 @@ export default function App() {
         <Stack.Screen
           name="login"
           component={Login}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="register"
+          component={Register}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
