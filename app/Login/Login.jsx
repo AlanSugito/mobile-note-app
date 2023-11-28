@@ -2,12 +2,16 @@ import { Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { COLORS, FONTS, SIZES } from "../../constants";
 import { Button, InputText } from "../../components/common";
-import { Link } from "@react-navigation/native";
+import { Link, useNavigation } from "@react-navigation/native";
 import styles from "./login.style";
 import { useState } from "react";
+import { AuthAPI } from "../../API";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigation = useNavigation();
 
   const setEmail = (value) => {
     setCredentials((prev) => ({ ...prev, email: value }));
@@ -15,6 +19,18 @@ const Login = () => {
 
   const setPassword = (value) => {
     setCredentials((prev) => ({ ...prev, password: value }));
+  };
+
+  const login = async () => {
+    try {
+      setIsLoading(true);
+      await AuthAPI.login(credentials);
+      navigation.navigate("home");
+    } catch (err) {
+      setError(err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -51,10 +67,15 @@ const Login = () => {
             onChangeText={setPassword}
           />
         </View>
-        <Text style={styles.errorMessage(true)}>
-          Password mus be at least 6 character
-        </Text>
-        <Button label={"Login"} bgColor={COLORS.yellow} />
+        {error ? (
+          <Text style={styles.errorMessage(true)}>{error.message}</Text>
+        ) : null}
+        <Button
+          label={"Login"}
+          bgColor={COLORS.yellow}
+          onPress={login}
+          isLoading={isLoading}
+        />
         <Text
           style={{
             color: "white",

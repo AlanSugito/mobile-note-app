@@ -7,8 +7,6 @@ import { useCallback, useEffect } from "react";
 import Home from "./app/Home/Home";
 import Paper from "./app/Paper/Paper";
 
-import { TouchableOpacity, Image } from "react-native";
-import { ICON } from "./constants";
 import Login from "./app/Login/Login";
 import Register from "./app/Register/Register";
 

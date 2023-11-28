@@ -12,10 +12,6 @@ const Notes = ({ datas }) => {
     setModalVisible(false);
   };
 
-  const showNote = (id) => {
-    navigation.navigate("note", { id });
-  };
-
   const openModal = () => {
     setModalVisible(true);
   };
@@ -28,15 +24,14 @@ const Notes = ({ datas }) => {
         onCancel={closeModal}
       />
       <View style={styles.notesContainer}>
-        {datas.map((item, index) => (
+        {datas.map((item) => (
           <Card
             id={item.id}
             title={item.title}
             bgColor={item.paperColor}
-            date={item.date}
-            desc={item.desc}
-            key={index}
-            onPress={showNote}
+            date={item.created_at}
+            content={item.content}
+            key={item.id}
             onDelete={openModal}
           />
         ))}

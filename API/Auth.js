@@ -5,7 +5,7 @@ import { Storage, handleError } from "../utils";
 class AuthAPI {
   constructor() {
     this.api = axios.create({
-      baseURL: BASE_URL,
+      baseURL: `${BASE_URL}/users`,
     });
   }
 
@@ -21,7 +21,7 @@ class AuthAPI {
   async login(credentials) {
     try {
       const { data } = await this.api.post("/auth/login", credentials);
-      await Storage.setCredentials(data);
+      await Storage.setCredentials(data.data);
     } catch (error) {
       throw handleError(error);
     }

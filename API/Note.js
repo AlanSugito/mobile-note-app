@@ -1,12 +1,12 @@
 import axios from "axios";
 
 import { BASE_URL } from "../constants";
-import { Storage } from "../utils";
+import { Storage, handleError } from "../utils";
 
 class NoteAPI {
   constructor() {
-    this.api = axios.create({
-      baseURL: `${BASE_URL}/api/notes`,
+    this._api = axios.create({
+      baseURL: `${BASE_URL}/notes`,
       timeout: 5000,
     });
   }
@@ -14,9 +14,20 @@ class NoteAPI {
   async getNotes() {
     try {
       const { id } = await Storage.getUserCredentials();
-      const { data } = await this.api.get(`/${id}`);
-      return data;
+      const { data } = await this._api.get(`/${id}`);
+      return data.data;
     } catch (error) {
+      throw handleError(error);
+    }
+  }
+
+  async getNoteById(noteId) {
+    try {
+      const { data } = await this._api.get(`/by/${noteId}`);
+
+      return data.data;
+    } catch (error) {
+      console.log(error);
       throw handleError(error);
     }
   }

@@ -5,7 +5,7 @@ import { FONTS, ICON, SIZES } from "../../../constants";
 import moment from "moment";
 import { useNavigation } from "@react-navigation/native";
 
-const Card = ({ id, bgColor, title, desc, date, onDelete }) => {
+const Card = ({ id, bgColor, title, content, date, onDelete }) => {
   const navigation = useNavigation();
   const deleteNote = () => {
     onDelete(id);
@@ -16,7 +16,7 @@ const Card = ({ id, bgColor, title, desc, date, onDelete }) => {
   };
 
   return (
-    <View style={styles.cardContainer(bgColor)}>
+    <View style={styles.cardContainer(`#${bgColor}`)}>
       <TouchableOpacity onPress={deleteNote} style={styles.closeButton}>
         <Image source={ICON.close} />
       </TouchableOpacity>
@@ -26,7 +26,7 @@ const Card = ({ id, bgColor, title, desc, date, onDelete }) => {
             <Heading text={title} boldnes={FONTS.headerSB} size={SIZES.lg} />
           </View>
           <View style={{ flex: 2 }}>
-            <Text style={styles.cardText}>{desc.substring(100)}</Text>
+            <Text style={styles.cardText}>{content.substring(0, 100)}</Text>
           </View>
           <View
             style={{

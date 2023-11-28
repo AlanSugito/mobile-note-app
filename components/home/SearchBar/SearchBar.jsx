@@ -21,6 +21,7 @@ const SearchBar = ({ onSearch }) => {
       <InputText
         placeholder={"Search your notes..."}
         onChangeText={handleChange}
+        width={"100%"}
       />
       <TouchableOpacity style={styles.searcBarButton} onPress={searchHandler}>
         <View style={{ width: "40%" }}>

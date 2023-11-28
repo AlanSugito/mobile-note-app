@@ -18,6 +18,14 @@ class Storage {
       throw error;
     }
   }
+
+  async removeCredentials() {
+    try {
+      await AsyncStorage.removeItem("credentials");
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export default new Storage();

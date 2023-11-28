@@ -2,10 +2,10 @@ import { TextInput } from "react-native";
 
 import styles from "./input.style";
 
-const InputText = ({ placeholder, ...props }) => {
+const InputText = ({ placeholder, width, ...props }) => {
   return (
     <TextInput
-      style={styles.inputText}
+      style={styles.inputText(width)}
       placeholder={placeholder}
       placeholderTextColor={"white"}
       cursorColor={"white"}

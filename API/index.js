@@ -1,3 +1,4 @@
 import NoteAPI from "./Note";
+import AuthAPI from "./Auth";
 
-export { NoteAPI };
+export { NoteAPI, AuthAPI };

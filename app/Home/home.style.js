@@ -32,6 +32,17 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.headerMd,
     fontSize: SIZES.md,
   },
+  noteEmptyMessage: {
+    color: "white",
+    fontFamily: FONTS.headerMd,
+    fontSize: SIZES.lg,
+    textAlign: "center",
+  },
+  emptyMessageContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });
 
 export default styles;

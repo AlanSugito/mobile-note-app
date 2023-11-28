@@ -4,7 +4,7 @@ import { COLORS, FONTS, SIZES } from "../../constants";
 const styles = StyleSheet.create({
   formContainer: {
     marginVertical: 40,
-    width: "100%",
+
     justifyContent: "center",
     gap: 20,
     paddingHorizontal: 15,
