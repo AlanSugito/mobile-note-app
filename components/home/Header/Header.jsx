@@ -1,9 +1,7 @@
 import { Image, View, TouchableOpacity, Animated } from "react-native";
-import { Heading } from "../../common";
-import { FONTS } from "../../../constants";
+import { ConfirmModal, Heading } from "../../common";
+import { FONTS, ICON } from "../../../constants";
 
-import avatar from "../../../assets/avatar.png";
-import anime from "../../../assets/anime.jpeg";
 import styles from "./header.style";
 import { Storage } from "../../../utils";
 import { useNavigation } from "@react-navigation/native";
@@ -13,6 +11,11 @@ import { useState } from "react";
 const Header = () => {
   const navigation = useNavigation();
   const [username, setName] = useState("Joe");
+  const [showModal, setShowModal] = useState(false);
+
+  const showAlert = async () => {
+    setShowModal(true);
+  };
 
   const logout = async () => {
     await Storage.removeCredentials();
@@ -31,6 +34,13 @@ const Header = () => {
 
   return (
     <View style={styles.headerContainer}>
+      <ConfirmModal
+        visible={showModal}
+        message={"Are you want to logout?"}
+        danger={true}
+        onCancel={() => setShowModal(false)}
+        onConfirm={logout}
+      />
       <View style={{ width: "60%" }}>
         <SlideIn duration={300}>
           <FadeIn duration={1000}>
@@ -42,8 +52,12 @@ const Header = () => {
           </FadeIn>
         </SlideIn>
       </View>
-      <TouchableOpacity onPress={logout}>
-        <Image source={anime} resizeMode="contain" style={styles.headerImage} />
+      <TouchableOpacity onPress={showAlert}>
+        <Image
+          source={ICON.logout}
+          resizeMode="contain"
+          style={styles.headerImage}
+        />
       </TouchableOpacity>
     </View>
   );

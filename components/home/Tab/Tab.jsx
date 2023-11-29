@@ -2,6 +2,7 @@ import { View, Text, Pressable } from "react-native";
 import { useState } from "react";
 
 import styles from "./tab.style";
+import { useFocusEffect } from "@react-navigation/native";
 
 const Tab = ({ onChange }) => {
   const [activeMenu, setActiveMenu] = useState("all");

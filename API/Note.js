@@ -11,10 +11,10 @@ class NoteAPI {
     });
   }
 
-  async getNotes() {
+  async getNotes(search="") {
     try {
       const { id } = await Storage.getUserCredentials();
-      const { data } = await this._api.get(`/${id}`);
+      const { data } = await this._api.get(`/${id}`, {params: {search}});
       return data.data;
     } catch (error) {
       throw handleError(error);

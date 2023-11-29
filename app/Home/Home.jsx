@@ -35,9 +35,36 @@ const Home = () => {
     setIsloading(false);
   };
 
-  const filterData = (filter) => {};
+  const filterData = async (filter) => {
+    if (filter === "all") {
+      await getNotes();
+    } else {
+      setNotes((prev) => {
+        return prev.filter((n) => {
+          return (
+            new Date().setHours(0, 0, 0, 0) ===
+            new Date(n.updated_at).setHours(0, 0, 0, 0)
+          );
+        });
+      });
+    }
+  };
 
-  const searchData = (value) => {};
+  const searchData = async (value) => {
+    if (!value) {
+      await getNotes();
+    } else {
+      await getNotes();
+      setNotes((prev) => {
+        return prev.filter((n) => {
+          return (
+            n.title.toLowerCase().includes(value.toLowerCase()) ||
+            n.content.toLowerCase().includes(value.toLowerCase())
+          );
+        });
+      });
+    }
+  };
 
   return (
     <SafeAreaView style={styles.homeSafeView}>
