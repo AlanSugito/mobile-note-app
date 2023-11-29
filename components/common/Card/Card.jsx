@@ -35,9 +35,7 @@ const Card = ({ id, bgColor, title, content, date, onDelete }) => {
               alignItems: "flex-end",
             }}
           >
-            <Text style={styles.cardText}>
-              {moment(date).startOf("days").fromNow()}
-            </Text>
+            <Text style={styles.cardText}>{moment().from(date)}</Text>
           </View>
         </View>
       </TouchableOpacity>

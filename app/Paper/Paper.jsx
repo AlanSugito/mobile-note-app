@@ -5,8 +5,10 @@ import {
   TouchableOpacity,
   View,
   Text,
+  Alert,
+  ActivityIndicator,
 } from "react-native";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { COLORS, FONTS } from "../../constants";
 import Header from "./Header";
@@ -19,18 +21,19 @@ import { NoteAPI } from "../../API";
 
 const Paper = () => {
   const route = useRoute();
+  const navigation = useNavigation();
   const [note, setNote] = useState({
     title: "Title",
-    desc: "",
+    content: "",
     created_at: new Date(),
     updated_at: new Date(),
     paperColor: COLORS.accents.yellow,
   });
 
   const [showModal, setShowModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    console.log(route.params);
     const getNote = async (id) => {
       const note = await NoteAPI.getNoteById(id);
       setNote(note);
@@ -41,7 +44,7 @@ const Paper = () => {
   }, [route.params.id]);
 
   const setNotes = (value) => {
-    setNote((prev) => ({ ...prev, desc: value }));
+    setNote((prev) => ({ ...prev, content: value }));
   };
 
   const setTitle = (value) => {
@@ -51,6 +54,37 @@ const Paper = () => {
   const setPaperColor = (color) => {
     setNote((prev) => ({ ...prev, paperColor: color }));
     setShowModal(false);
+  };
+
+  const handlePressButton = () => {
+    setIsLoading(true);
+    if (!route.params.id) {
+      addNote();
+    } else {
+      updateNote();
+    }
+    setIsLoading(false);
+  };
+
+  const addNote = async () => {
+    try {
+      const { title, content, paperColor } = note;
+
+      const { message } = await NoteAPI.addNote({ title, content, paperColor });
+      Alert.alert("Success", message);
+      navigation.navigate("home");
+    } catch (error) {
+      Alert.alert("Failed", error.message);
+    }
+  };
+
+  const updateNote = async () => {
+    try {
+      const { title, content, paperColor } = note;
+      await NoteAPI.updateNote(route.params.id, { title, content, paperColor });
+    } catch (error) {
+      Alert.alert("Failed", error.message);
+    }
   };
 
   return (
@@ -70,10 +104,10 @@ const Paper = () => {
         {route.params.id ? (
           <View style={{ flexDirection: "row", gap: 30, marginTop: 20 }}>
             <Text style={styles.timestamp}>
-              Created : {moment(note.created_at).startOf("day").fromNow()}
+              Created : {moment().startOf("minute").from(note.created_at)}
             </Text>
             <Text style={styles.timestamp}>
-              Last Modified: {moment(note.updated_at).startOf("day").fromNow()}
+              Last Modified: {moment().startOf("minute").from(note.updated_at)}
             </Text>
           </View>
         ) : null}
@@ -92,8 +126,13 @@ const Paper = () => {
         <View style={{ alignItems: "center", justifyContent: "center" }}>
           <TouchableOpacity
             style={{ padding: 10, borderRadius: 5, backgroundColor: "white" }}
+            onPress={handlePressButton}
           >
-            <Text style={{ fontFamily: FONTS.headerMd }}>Save</Text>
+            {!isLoading ? (
+              <Text style={{ fontFamily: FONTS.headerMd }}>Save</Text>
+            ) : (
+              <ActivityIndicator color={note.paperColor} />
+            )}
           </TouchableOpacity>
         </View>
       </View>

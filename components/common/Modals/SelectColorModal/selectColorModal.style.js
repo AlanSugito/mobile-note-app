@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     borderRadius: 100,
-    backgroundColor: bgColor,
+    backgroundColor: `#${bgColor}`,
     borderWidth: isSelected ? 2 : 0,
     borderColor: COLORS.black,
   }),
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   modalBtn: (bgColor) => ({
     paddingVertical: 10,
     paddingHorizontal: 20,
-    backgroundColor: bgColor,
+    backgroundColor: `#${bgColor}`,
     borderRadius: 5,
   }),
 });

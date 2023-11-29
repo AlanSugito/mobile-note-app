@@ -1,4 +1,4 @@
-import { Image, Modal, Text, TouchableOpacity, View } from "react-native";
+import { Modal, Text, TouchableOpacity, View } from "react-native";
 import { COLORS, FONTS, SIZES } from "../../../../constants";
 
 import styles from "./selectColorModal.style";

@@ -1,3 +1,4 @@
+import { useFocusEffect } from "@react-navigation/native";
 import { useRef } from "react";
 import { Animated } from "react-native";
 
@@ -11,11 +12,12 @@ const SlideIn = ({ children, duration }) => {
     }).start();
   };
 
+  useFocusEffect(() => {
+    animate();
+  });
+
   return (
-    <Animated.View
-      onLayout={animate}
-      style={{ transform: [{ translateX: slideIn }] }}
-    >
+    <Animated.View style={{ transform: [{ translateX: slideIn }] }}>
       {children}
     </Animated.View>
   );

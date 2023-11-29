@@ -1,19 +1,33 @@
-import { ScrollView, View } from "react-native";
+import { Alert, ScrollView, View } from "react-native";
 import { Card, ConfirmModal } from "../../components/common";
 import styles from "./home.style";
 import { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
 
-const Notes = ({ datas }) => {
+import { NoteAPI } from "../../API";
+
+const Notes = ({ datas, onNoteDeleted }) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const navigation = useNavigation();
+  const [selectedId, setSelectedId] = useState(false);
 
   const closeModal = () => {
     setModalVisible(false);
   };
 
-  const openModal = () => {
+  const openModal = (id) => {
+    setSelectedId(id);
     setModalVisible(true);
+  };
+
+  const deleteNote = async () => {
+    try {
+      const { message } = await NoteAPI.deleteNote(selectedId);
+      Alert.alert("Success", message);
+      onNoteDeleted();
+    } catch (error) {
+      Alert.alert("Failed", error.message);
+    }
+
+    closeModal();
   };
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
@@ -22,6 +36,7 @@ const Notes = ({ datas }) => {
         danger={true}
         message={"Are you sure want to delete this note?"}
         onCancel={closeModal}
+        onConfirm={deleteNote}
       />
       <View style={styles.notesContainer}>
         {datas.map((item) => (

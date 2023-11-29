@@ -1,3 +1,4 @@
+import { useFocusEffect } from "@react-navigation/native";
 import { useRef } from "react";
 import { Animated } from "react-native";
 
@@ -11,11 +12,11 @@ const FadeIn = ({ children, duration }) => {
     }).start();
   };
 
-  return (
-    <Animated.View onLayout={animate} style={{ opacity: fadeIn }}>
-      {children}
-    </Animated.View>
-  );
+  useFocusEffect(() => {
+    animate();
+  });
+
+  return <Animated.View style={{ opacity: fadeIn }}>{children}</Animated.View>;
 };
 
 export default FadeIn;

@@ -1,37 +1,39 @@
 import { Header, SearchBar, Tab } from "../../components/home";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { COLORS, FONTS, SIZES } from "../../constants";
 
 import Notes from "./Notes";
 import Footer from "./Footer";
 import Greeting from "./Greeting";
 import styles from "./home.style";
-import { useEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { useCallback, useState } from "react";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { Storage } from "../../utils";
 import { NoteAPI } from "../../API";
 import { Text, View, ActivityIndicator } from "react-native";
 
 const Home = () => {
   const navigation = useNavigation();
+
   const [notes, setNotes] = useState([]);
   const [isLoading, setIsloading] = useState(false);
 
-  useEffect(() => {
-    Storage.getUserCredentials().then((credential) => {
-      if (!credential) navigation.navigate("login");
-    });
+  useFocusEffect(
+    useCallback(() => {
+      Storage.getUserCredentials().then((credential) => {
+        if (!credential) navigation.navigate("login");
+      });
 
-    const getNotes = async () => {
-      setIsloading(true);
-      const { notes } = await NoteAPI.getNotes();
+      getNotes();
+    }, [])
+  );
 
-      setNotes(notes);
-      setIsloading(false);
-    };
+  const getNotes = async () => {
+    setIsloading(true);
+    const { notes } = await NoteAPI.getNotes();
 
-    getNotes();
-  }, []);
+    setNotes(notes);
+    setIsloading(false);
+  };
 
   const filterData = (filter) => {};
 
@@ -54,7 +56,7 @@ const Home = () => {
           </Text>
         </View>
       ) : (
-        <Notes datas={notes} />
+        <Notes datas={notes} onNoteDeleted={getNotes} />
       )}
 
       <Footer />

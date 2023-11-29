@@ -4,7 +4,7 @@ import { FONTS, SIZES } from "../../constants";
 const styles = StyleSheet.create({
   paperContainer: (bgColor) => ({
     flex: 1,
-    backgroundColor: bgColor,
+    backgroundColor: `#${bgColor}`,
     padding: 15,
   }),
   noteTitle: {

@@ -5,11 +5,11 @@ const COLORS = {
   red: "#FF3636",
 
   accents: {
-    yellow: "#F1DC21",
-    gray: "#979797",
-    red: "#F46969",
-    blue: "#0BCBE5",
-    green: "#2CBD3B",
+    yellow: "F1DC21",
+    gray: "979797",
+    red: "F46969",
+    blue: "0BCBE5",
+    green: "2CBD3B",
   },
 };
 

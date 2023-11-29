@@ -27,15 +27,37 @@ class NoteAPI {
 
       return data.data;
     } catch (error) {
-      console.log(error);
       throw handleError(error);
     }
   }
 
-  async addNote(usernote) {
+  async addNote(note) {
     try {
-      const { data } = this.api.post("/", note);
-    } catch (error) {}
+      const { id } = await Storage.getUserCredentials();
+      const { data } = await this._api.post(`/${id}`, note);
+
+      return data;
+    } catch (error) {
+      throw handleError(error);
+    }
+  }
+
+  async updateNote(id, data) {
+    try {
+      const response = await this._api.put(`/${id}`, data);
+      return response.data;
+    } catch (error) {
+      throw handleError(error);
+    }
+  }
+
+  async deleteNote(id) {
+    try {
+      const { data } = await this._api.delete(`/${id}`);
+      return data;
+    } catch (error) {
+      throw handleError(error);
+    }
   }
 }
 
